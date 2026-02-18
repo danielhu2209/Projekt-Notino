@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rólunk - L'Essence Parfüméria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- KÖZÖS STÍLUSOK (másold át a style.css-be vagy hagyd itt) --- */
+        :root {
+            --color-bg: #F9F7F2;
+            --color-text:  black;
+            --color-gold: #D4AF37;
+            --color-deep: #4A2C2A;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-body); background-color: var(--color-bg); color: var(--color-text); line-height: 1.8; font-weight: 300; }
+        h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--color-text); font-weight: 400; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* Gombok */
+        .btn {
+            display: inline-block; padding: 12px 30px; border: 1px solid var(--color-text);
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; cursor: pointer;
+            transition: all 0.3s ease; background: transparent; margin-top: 20px;
+        }
+        .btn:hover { background-color: var(--color-text); color: var(--color-bg); }
+        .btn-gold { border-color: var(--color-gold); color: var(--color-gold); }
+        .btn-gold:hover { background-color: var(--color-gold); color: #fff; }
+
+        /* Header (Konzisztens) */
+        header {
+            padding: 20px 50px; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            background-color: rgba(249, 247, 242, 0.95); border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .logo { font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 2px; font-weight: 600; }
+        nav ul { display: flex; gap: 30px; list-style: none; }
+        nav a { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        nav a:hover, nav a.active { color: var(--color-gold); }
+
+        /* --- BEMUTATKOZÁS SPECIFIKUS STÍLUSOK --- */
+
+        /* Kisebb Hero szekció */
+        .page-hero {
+            height: 60vh;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/bemutatkozashero.png');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff;
+        }
+        .page-hero h1 { font-size: 3.5rem; margin-bottom: 15px; }
+        .page-hero p { font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Történet és Filozófia (Zig-Zag elrendezés) */
+        .story-section { padding: 100px 50px; max-width: 1400px; margin: 0 auto; }
+        .story-row {
+            display: flex; align-items: center; gap: 80px; margin-bottom: 100px;
+        }
+        .story-row:last-child { margin-bottom: 0; }
+        .story-row.reverse { flex-direction: row-reverse; }
+        
+        .story-content { flex: 1; }
+        .story-image { flex: 1; height: 500px; overflow: hidden; position: relative; }
+        .story-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .story-image:hover img { transform: scale(1.03); }
+
+        .story-content h2 { font-size: 2.5rem; margin-bottom: 30px; color: var(--color-deep); }
+        .story-content p { color: #555; margin-bottom: 20px; font-size: 1.05rem; }
+
+        /* Alapanyagok */
+        .ingredients { background-color: #fff; padding: 100px 50px; text-align: center; }
+        .ingredients h2 { font-size: 2.5rem; margin-bottom: 60px; }
+        .ingredients-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .ingredient-card { text-align: center; }
+        .ing-img-circle {
+            width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 0 auto 25px;
+            border: 1px solid var(--color-gold); padding: 5px;
+        }
+        .ing-img-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .ingredient-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-style: italic; }
+
+        /* Mesterparfümőr */
+        .perfumer {
+            padding: 100px 50px; background-color: var(--color-deep); color: #fff;
+            display: flex; align-items: center; justify-content: center; gap: 60px;
+        }
+        .perfumer-img { width: 400px; height: 500px; flex-shrink: 0; }
+        .perfumer-img img { width: 100%; height: 100%; object-fit: cover; filter: sepia(20%); }
+        .perfumer-text { max-width: 600px; }
+        .perfumer-text h2 { color: var(--color-gold); font-size: 2.5rem; margin-bottom: 20px; }
+        .perfumer-text h4 { font-family: var(--font-body); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; font-size: 0.9rem; }
+
+        /* Illatjegyek (Ikonos megjelenítés) */
+        .notes-section { padding: 100px 50px; text-align: center; background-color: var(--color-bg); }
+        .notes-container {
+            display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 60px; max-width: 1200px; margin-left: auto; margin-right: auto;
+        }
+        .note-item { flex: 1; min-width: 200px; padding: 20px; }
+        .note-icon {
+            font-size: 2.5rem; color: var(--color-gold); margin-bottom: 20px;
+            border: 1px solid var(--color-gold); width: 80px; height: 80px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: auto; margin-right: auto;
+        }
+
+        /* Vélemények */
+        .testimonials { padding: 80px 20px; text-align: center; background-color: #f4f1ea; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 40px auto; }
+        .review-card { background: #fff; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .stars { color: var(--color-gold); margin-bottom: 15px; }
+        .review-text { font-style: italic; margin-bottom: 15px; color: #555; }
+
+        /* Lábléc (Konzisztens) */
+        footer { background-color: #1a1a1a; color: #888; padding: 40px 20px; text-align: center; font-size: 0.8rem; }
+
+        /* Reszponzivitás */
+        @media (max-width: 900px) {
+            .story-row, .story-row.reverse, .perfumer { flex-direction: column; gap: 40px; }
+            .story-image, .perfumer-img { width: 100%; height: 350px; }
+            .header { padding: 15px 20px; }
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">L'ESSENCE</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Főoldal</a></li>
+                <li><a href="bemutatkozas.html" class="active">Rólunk</a></li>
+                <li><a href="webshop.html">Kollekciók</a></li>
+                <li><a href="elerhetoseg.html">Kapcsolat</a></li>
+            </ul>
+        </nav>
+        <div style="font-size: 1.5rem; cursor: pointer;" class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+    </header>
+
+    <section class="page-hero">
+        <div>
+            <h1>Történetünk</h1>
+            <p>Szenvedély. Hagyomány. Alkotás.</p>
+        </div>
+    </section>
+
+    <section class="story-section">
+        <div class="story-row">
+            <div class="story-content">
+                <h2>A kezdetektől a szenvedélyig</h2>
+                <p>A L'Essence története egy kis dél-franciaországi műhelyben kezdődött, ahol az alapító család generációk óta őrzi a parfümkészítés titkait.  Ami kezdetben csupán a helyi virágok lepárlásával indult, mára egy nemzetközileg elismert márkává nőtte ki magát.</p>
+                <p>Hisszük, hogy a parfüm nem csupán illat, hanem emlékezet. Minden üvegben egy darabka történelmet és rengeteg odaadást zárunk.</p>
+            </div>
+            <div class="story-image">
+                <img src="images/kezdetek.jpg" alt="Kezdetek">
+            </div>
+        </div>
+
+        <div class="story-row reverse">
+            <div class="story-content">
+                <h2>Küldetésünk</h2>
+                <p>Célunk, hogy visszahozzuk a parfümviselés rituáléjának szakralitását.  A modern tömeggyártással szemben mi a "slow perfume" filozófiáját valljuk: időt hagyunk az alapanyagok érésére, az illatok komponálására és a tökéletes harmónia megtalálására.</p>
+                <p>Szeretnénk, ha vásárlóink nem csupán egy terméket, hanem egy élményt kapnának, amely kiemeli egyéniségüket és magabiztosságot ad.</p>
+                <a href="webshop.html" class="btn btn-gold">Fedezd fel a kollekciókat</a>
+            </div>
+            <div class="story-image">
+                <img src="images/ingredients.jpg" alt="Parfüm alapanyagok">
+            </div>
+        </div>
+    </section>
+
+    <section class="ingredients">
+        <h2>A Legnemesebb Összetevők</h2>
+        <p style="max-width: 700px; margin: 0 auto 50px auto; color: #666;">
+            Nem kötünk kompromisszumot. Parfümjeink alapját a világ legtisztább, etikusan beszerzett esszenciái adják. 
+        </p>
+        <div class="ingredients-grid">
+            <div class="ingredient-card">
+                <div class="ing-img-circle">
+                    <img src="https://images.unsplash.com/photo-1550953930-b3848b6c4331?q=80&w=600&auto=format&fit=crop" alt="Damaszkuszi Rózsa">
+                </div>
+                <h3>Damaszkuszi Rózsa</h3>
+                <p>Kézzel szüretelve a hajnali órákban, hogy megőrizze frissességét.</p>
+            </div>
+            <div class="ingredient-card">
+                <div class="ing-img-circle">
+                    <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=600&auto=format&fit=crop" alt="Jázmin">
+                </div>
+                <h3>Grasse-i Jázmin</h3>
+                <p>Intenzív, bódító illat, a francia parfümgyártás ékköve.</p>
+            </div>
+            <div class="ingredient-card">
+                <div class="ing-img-circle">
+                    <img src="https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=600&auto=format&fit=crop" alt="Szantálfa">
+                </div>
+                <h3>Mysore Szantálfa</h3>
+                <p>Krémes, fás jegyek, amelyek mélységet és tartósságot adnak.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="perfumer">
+        <div class="perfumer-img">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=600&auto=format&fit=crop" alt="Mesterparfümőr">
+        </div>
+        <div class="perfumer-text">
+            <h4>Az Alkotó</h4>
+            <h2>Henri Lefevre</h2>
+            <p>"Az inspiráció bárhonnan érkezhet: egy eső utáni erdő illatából, egy régi könyvtár csendjéből vagy egy felejthetetlen utazás emlékéből.  Az én feladatom, hogy ezeket az érzéseket folyékony művészetté alakítsam."</p>
+            <p style="margin-top: 20px;">Henri több mint 30 éves tapasztalattal rendelkezik, és a világ legnevesebb parfümházaival dolgozott együtt, mielőtt megalkotta a L'Essence kollekcióit.</p>
+        </div>
+    </section>
+
+    
+
+    <section class="testimonials">
+        <h2 style="font-size: 2rem;">Vásárlóink Mondták</h2>
+        <div class="testimonial-grid">
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Végre egy illat, ami nem jön szembe az utcán. A 'Jardin de Fleurs' a kedvencem lett!"</p>
+                <p><strong>- Kiss Anna</strong></p>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"A csomagolás, az üveg, az illat... mindenből sugárzik a minőség. Igazi luxus élmény."</p>
+                <p><strong>- Kovács Péter</strong></p>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-text">"Személyes konzultáción voltam, és tökéletesen eltalálták az ízlésemet."</p>
+                <p><strong>- Varga Eszter</strong></p>
+            </div>
+        </div>
+        <a href="elerhetoseg.html" class="btn">Foglalj időpontot konzultációra</a>
+    </section>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: #fff; margin: 0 10px;"><i class="fab fa-pinterest"></i></a>
+        </div>
+        <p>&copy; 2024 L'Essence Parfüméria. Minden jog fenntartva.</p>
+    </footer>
+
+</body>
+</html>

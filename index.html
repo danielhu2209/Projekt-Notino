@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Essence - Luxus Parfüméria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VÁLTOZÓK ÉS ALAPBEÁLLÍTÁSOK --- */
+        :root {
+            --color-bg: #F9F7F2;       /* Elefántcsont */
+            --color-text: black;     /* Sötét szürke */
+            --color-gold: #D4AF37;     /* Arany */
+            --color-deep: #4A2C2A;     /* Mély bordó/barna */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--color-text);
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- GOMBOK STÍLUSA (Luxus outline stílus) --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 1px solid var(--color-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .btn:hover {
+            background-color: var(--color-text);
+            color: var(--color-bg);
+        }
+
+        .btn-gold {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--color-gold);
+            color: #fff;
+        }
+
+        /* --- NAVIGÁCIÓ --- */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(249, 247, 242, 0.95);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--color-gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SZEKCIÓ  --- */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/fooldalhero.avif'); 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.0);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero .btn {
+            border-color: #fff;
+            color: #fff;
+        }
+        .hero .btn:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* --- BEMUTATKOZÁS (INTRO)  --- */
+        .intro {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--color-deep);
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* --- KIEMELT KOLLEKCIÓK  --- */
+        .collections {
+            padding: 80px 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .collection-card {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .img-container {
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .collection-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .collection-card .btn {
+            margin-top: 15px;
+            border-color: #ddd;
+            color: #666;
+        }
+
+        /* --- TÖRTÉNET TEASER  --- */
+        .history-teaser {
+            display: flex;
+            align-items: center;
+            background-color: #f4f1ea;
+            margin: 50px 0;
+        }
+
+        .history-content {
+            flex: 1;
+            padding: 80px;
+        }
+
+        .history-img {
+            flex: 1;
+            height: 500px;
+            background-image: url('images/collection.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* --- IDÉZET  --- */
+        .quote-section {
+            padding: 100px 20px;
+            text-align: center;
+            background-color: var(--color-deep);
+            color: #fff;
+        }
+
+        .quote-section blockquote {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .quote-section cite {
+            display: block;
+            margin-top: 20px;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-gold);
+            font-style: normal;
+        }
+
+        /* --- KAPCSOLAT & HÍRLEVÉL  --- */
+        .contact-preview {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--color-gold);
+            margin-bottom: 15px;
+        }
+
+        .newsletter {
+            margin-top: 80px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid var(--color-text);
+            background: transparent;
+            outline: none;
+            font-family: var(--font-body);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a1a1a;
+            color: #888;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* --- RESZPONZIVITÁS --- */
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            nav ul { display: none; } /* Egyszerűség kedvéért mobilon rejtve, JS nyitná */
+            .mobile-menu-btn { display: block; }
+            
+            .hero h1 { font-size: 2.5rem; }
+            .history-teaser { flex-direction: column; }
+            .history-img { width: 100%; height: 300px; }
+            .history-content { padding: 40px 20px; }
+            .quote-section blockquote { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">L'ESSENCE</div>
+        <nav>
+            <ul>
+                <li><a href="index.html" style="color: var(--color-gold);">Főoldal</a></li>
+                <li><a href="bemutatkozas.html">Rólunk</a></li>
+                <li><a href="webshop.html">Kollekciók</a></li>
+                <li><a href="elerhetoseg.html">Kapcsolat</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Az Illatok Művészete</h1>
+        <p>Időtlen elegancia. Felejthetetlen jelenlét.</p>
+        <a href="webshop.html" class="btn">Fedezd fel a Webshopot</a>
+    </section>
+
+    <section class="intro">
+        <h2>Luxus illatok ínyenceknek</h2>
+        <p>A L'Essence nem csupán egy parfüméria, hanem utazás az érzékek világába. Filozófiánk a hagyományos parfümkészítés és a modern elegancia ötvözése, ahol minden csepp egy történetet mesél el.</p>
+    </section>
+
+    <section class="collections">
+        <h2 class="section-title">Kiemelt Kollekciók</h2>
+        <div class="collection-grid">
+            
+            <div class="collection-card">
+                <div class="img-container">
+                    <img src="images/ombreleather.webp" alt="Ombre Leather">
+                </div>
+                <h3>Tom Ford Ombre leather</h3>
+                <p>leiras</p>
+                <a href="webshop.html" class="btn">Fedezd fel</a>
+            </div>
+
+            <div class="collection-card">
+                <div class="img-container">
+                    <img src="images/percival.webp" alt="Percival">
+                </div>
+                <h3>Parfums De Marly Percival</h3>
+                <p>leiras</p>
+                <a href="webshop.html" class="btn">Fedezd fel</a>
+            </div>
+
+            <div class="collection-card">
+                <div class="img-container">
+                    <img src="images/naxos.jpg" alt="Naxos">
+                </div>
+                <h3>Xerjoff Naxos</h3>
+                <p>leiras</p>
+                <a href="webshop.html" class="btn">Fedezd fel</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="history-teaser">
+        <div class="history-content">
+            <h2 style="margin-bottom: 20px;">Örökségünk</h2>
+            <p style="margin-bottom: 30px; color: #555;">
+                Alapítóink szenvedélye a ritka esszenciák iránt generációk óta öröklődik. Célunk, hogy visszahozzuk a parfümviselés aranykorát, ahol az illat nem csupán kiegészítő, hanem személyiségünk kiterjesztése.
+            </p>
+            <a href="bemutatkozas.html" class="btn btn-gold">Tudj meg többet</a>
+        </div>
+        <div class="history-img" role="img" aria-label="Parfümkészítés művészete"></div>
+    </section>
+
+    <section class="quote-section">
+        <blockquote>
+            "A parfüm egy láthatatlan, de felejthetetlen ékszer, amely jelzi az érkezésedet, és emlékeztet a távozásod után."
+        </blockquote>
+        <cite>Coco Chanel filozófiája nyomán</cite>
+    </section>
+
+    <section class="contact-preview">
+        <h2 class="section-title">Lépj kapcsolatba velünk</h2>
+        
+        <div class="contact-details">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>1052 Budapest, Andrássy út 22.</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <p>+36 1 234 5678</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p>hello@lessence-parfum.hu</p>
+            </div>
+        </div>
+
+        <a href="elerhetoseg.html" class="btn">Írj nekünk üzenetet</a>
+
+        <div class="newsletter">
+            <h3>Iratkozz fel hírlevelünkre</h3>
+            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">Értesülj elsőként az exkluzív kollekciókról.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Email címed..." required>
+                <button type="submit" class="btn btn-gold">Küldés</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+        <p>&copy; 2024 L'Essence Parfüméria. Minden jog fenntartva.</p>
+    </footer>
+
+</body>
+</html>
