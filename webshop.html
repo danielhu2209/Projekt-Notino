@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="hu">
+  <!--npx json-server --watch database.json-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L'Essence - Kollekciók & Webshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- KÖZÖS CSS --- */
+      :root {
+        --color-bg: #f9f7f2;
+        --color-text: black;
+        --color-gold: #d4af37;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Lato", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-body);
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        font-weight: 300;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: var(--font-heading);
+        font-weight: 400;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+      ul {
+        list-style: none;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 25px;
+        border: 1px solid var(--color-text);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: transparent;
+      }
+      .btn:hover {
+        background-color: var(--color-text);
+        color: var(--color-bg);
+      }
+      .btn-gold {
+        border-color: var(--color-gold);
+        color: var(--color-gold);
+        background: transparent;
+      }
+      .btn-gold:hover {
+        background-color: var(--color-gold);
+        color: #fff;
+      }
+
+      /* --- NAVIGÁCIÓ & KOSÁR IKON --- */
+      header {
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(249, 247, 242, 0.98);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .logo {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+      nav ul {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+      nav a {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+      }
+      nav a:hover {
+        color: var(--color-gold);
+      }
+
+      .cart-icon-container {
+        position: relative;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin-left: 20px;
+      }
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: var(--color-gold);
+        color: white;
+        font-size: 0.7rem;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-weight: bold;
+      }
+
+      /* --- WEBSHOP ELRENDEZÉS --- */
+      .page-header {
+        margin-top: 100px;
+        padding: 60px 20px 40px;
+        text-align: center;
+      }
+      .page-header h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      .shop-container {
+        display: flex;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 50px 80px;
+        gap: 50px;
+      }
+
+      /* --- SZŰRŐK --- */
+      .filters {
+        flex: 0 0 250px;
+      }
+      .filter-group {
+        margin-bottom: 40px;
+      }
+      .filter-group h4 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+      }
+      .search-box {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background: transparent;
+        outline: none;
+      }
+      .filter-label {
+        display: block;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+
+      /* --- TERMÉK RÁCS --- */
+      .products-area {
+        flex: 1;
+      }
+      .products-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .sort-select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        background: transparent;
+        outline: none;
+      }
+      .collection-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 40px;
+      }
+
+      .collection-card {
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .collection-card:hover {
+        transform: translateY(-5px);
+      }
+      .img-container {
+        height: 350px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        background-color: #fff;
+      }
+      .img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .collection-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+      }
+      .price {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+      }
+      .notes {
+        font-size: 0.85rem;
+        color: #888;
+        font-style: italic;
+        margin-bottom: 10px;
+      }
+      .stock-status {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+      }
+      .in-stock {
+        color: #2e7d32;
+      }
+      .out-of-stock {
+        color: #c62828;
+      }
+      .btn-cart {
+        width: 100%;
+      }
+      .btn-disabled {
+        border-color: #ccc;
+        color: #ccc;
+        cursor: not-allowed;
+      }
+
+      /* --- KOSÁR OLDALSÁV (SLIDE-IN) --- */
+      .cart-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .cart-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+
+      .cart-sidebar {
+        position: fixed;
+        top: 0;
+        right: -450px;
+        width: 400px;
+        max-width: 100%;
+        height: 100%;
+        background-color: var(--color-bg);
+        z-index: 1002;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        transition: right 0.4s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-sidebar.open {
+        right: 0;
+      }
+
+      .cart-header {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+      }
+      .cart-header h2 {
+        font-size: 1.5rem;
+      }
+      .close-cart {
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+      }
+      .cart-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+      }
+      .cart-item img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+      }
+      .cart-item-info {
+        flex: 1;
+      }
+      .cart-item-info h4 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+      }
+      .qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .qty-btn {
+        background: #ddd;
+        border: none;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .qty-btn:hover {
+        background: #ccc;
+      }
+
+      .cart-footer {
+        padding: 20px;
+        border-top: 1px solid #ddd;
+        background: #fff;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .btn-checkout {
+        width: 100%;
+        background-color: var(--color-text);
+        color: var(--color-bg);
+        text-align: center;
+      }
+      .btn-checkout:hover {
+        background-color: #333;
+      }
+
+      footer {
+        background-color: #1a1a1a;
+        color: #888;
+        padding: 40px 20px;
+        text-align: center;
+        font-size: 0.8rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">L'ESSENCE</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Főoldal</a></li>
+          <li><a href="bemutatkozas.html">Rólunk</a></li>
+          <li>
+            <a href="webshop.html" style="color: var(--color-gold)"
+              >Kollekciók</a
+            >
+          </li>
+          <li><a href="elerhetoseg.html">Kapcsolat</a></li>
+          <li class="cart-icon-container" onclick="toggleCart()">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-badge" id="cart-badge">0</span>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="page-header">
+      <h1>Boutique</h1>
+      <p>Fedezze fel exkluzív illatainkat</p>
+    </div>
+
+    <main class="shop-container">
+      <aside class="filters">
+        <div class="filter-group">
+          <h4>Keresés</h4>
+          <input
+            type="text"
+            id="search-input"
+            class="search-box"
+            placeholder="Parfüm neve alapján..."
+          />
+        </div>
+        <div class="filter-group">
+          <h4>Illatjegyek</h4>
+          <label class="filter-label"
+            ><input type="checkbox" value="virágos" /> Virágos</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="fás" /> Fás</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="orientális" /> Orientális</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="citrusos" /> Citrusos</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="fűszeres" /> Fűszeres</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="édes" /> Édes</label
+          >
+          <label class="filter-label"
+            ><input type="checkbox" value="bőr" /> Bőr</label
+          >
+        </div>
+      </aside>
+
+      <section class="products-area">
+        <div class="products-header">
+          <span><strong id="product-count">0</strong> termék található</span>
+          <select id="sort-select" class="sort-select">
+            <option value="default">Alapértelmezett sorrend</option>
+            <option value="price-asc">Ár: Alacsonytól Magasig</option>
+            <option value="price-desc">Ár: Magastól Alacsonyig</option>
+          </select>
+        </div>
+        <div class="collection-grid" id="product-grid"></div>
+      </section>
+    </main>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-header">
+        <h2>Kosaram</h2>
+        <i class="fas fa-times close-cart" onclick="toggleCart()"></i>
+      </div>
+      <div class="cart-items" id="cart-items-container"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Összesen:</span>
+          <span id="cart-total-price">0 Ft</span>
+        </div>
+        <button class="btn btn-checkout" onclick="checkout()">
+          Fizetés és Megrendelés
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 L'Essence Parfüméria. Minden jog fenntartva.</p>
+    </footer>
+
+    <script>
+      let allProducts = [];
+      let cart = JSON.parse(localStorage.getItem("lessence_cart")) || []; // Kosár betöltése LocalStorage-ből
+
+      const productGrid = document.getElementById("product-grid");
+      const cartSidebar = document.getElementById("cart-sidebar");
+      const cartOverlay = document.getElementById("cart-overlay");
+      const cartItemsContainer = document.getElementById(
+        "cart-items-container",
+      );
+      const cartBadge = document.getElementById("cart-badge");
+      const cartTotalPrice = document.getElementById("cart-total-price");
+
+      // 1. Termékek lekérése
+      async function fetchProducts() {
+        try {
+          const response = await fetch("http://localhost:3000/parfumok");
+          allProducts = await response.json();
+          applyFiltersAndSort();
+          updateCartUI(); // UI frissítése betöltéskor
+        } catch (error) {
+          console.error("Hiba az adatbázissal:", error);
+        }
+      }
+
+      // 2. Termékek renderelése
+      function renderProducts(productsToRender) {
+        productGrid.innerHTML = "";
+        document.getElementById("product-count").innerText =
+          productsToRender.length;
+
+        productsToRender.forEach((product) => {
+          const isAvailable = product.raktarkeszlet > 0;
+          const btnHTML = isAvailable
+            ? `<button class="btn btn-cart" onclick="addToCart(${product.id})">Kosárba teszem</button>`
+            : `<button class="btn btn-cart btn-disabled" disabled>Elfogyott</button>`;
+
+          const cardHTML = `
+                    <div class="collection-card">
+                        <div class="img-container">
+                            <img src="${product.kep_url}" onerror="this.src='https://via.placeholder.com/300x400?text=Kép'">
+                        </div>
+                        <h3>${product.nev}</h3>
+                        <p class="notes">${product.illatjegy}</p>
+                        <p class="price">${product.ar.toLocaleString("hu-HU")} Ft</p>
+                        <p class="stock-status ${isAvailable ? "in-stock" : "out-of-stock"}">
+                            Raktáron: ${product.raktarkeszlet} db
+                        </p>
+                        ${btnHTML}
+                    </div>
+                `;
+          productGrid.insertAdjacentHTML("beforeend", cardHTML);
+        });
+      }
+
+      // 3. Kosárba tétel logikája
+      function addToCart(productId) {
+        const product = allProducts.find((p) => p.id === productId);
+        const existingItem = cart.find((item) => item.id === productId);
+
+        if (existingItem) {
+          // Ha már benne van, és van is elég raktáron
+          if (existingItem.quantity < product.raktarkeszlet) {
+            existingItem.quantity++;
+          } else {
+            alert("Ebből a termékből nincs több raktáron!");
+            return;
+          }
+        } else {
+          // Ha még nincs a kosárban
+          cart.push({
+            id: product.id,
+            nev: product.nev,
+            ar: product.ar,
+            kep_url: product.kep_url,
+            quantity: 1,
+          });
+        }
+
+        saveCart();
+        updateCartUI();
+
+        // Ha a kosár be volt zárva, nyissuk meg
+        if (!cartSidebar.classList.contains("open")) {
+          toggleCart();
+        }
+      }
+
+      // 4. Kosár mennyiség módosítása
+      function changeQuantity(productId, delta) {
+        const product = allProducts.find((p) => p.id === productId);
+        const item = cart.find((i) => i.id === productId);
+
+        if (!item) return;
+
+        const newQty = item.quantity + delta;
+
+        if (newQty <= 0) {
+          // Törlés a kosárból
+          cart = cart.filter((i) => i.id !== productId);
+        } else if (newQty > product.raktarkeszlet) {
+          alert("Nincs több raktáron!");
+        } else {
+          item.quantity = newQty;
+        }
+
+        saveCart();
+        updateCartUI();
+      }
+
+      // 5. Kosár UI frissítése és mentés LocalStorage-be
+      function updateCartUI() {
+        cartItemsContainer.innerHTML = "";
+        let total = 0;
+        let itemCount = 0;
+
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML =
+            '<p style="text-align:center; color:#888; margin-top:20px;">A kosarad jelenleg üres.</p>';
+        }
+
+        cart.forEach((item) => {
+          total += item.ar * item.quantity;
+          itemCount += item.quantity;
+
+          const cartItemHTML = `
+                    <div class="cart-item">
+                        <img src="${item.kep_url}" onerror="this.src='https://via.placeholder.com/80?text=Kép'">
+                        <div class="cart-item-info">
+                            <h4>${item.nev}</h4>
+                            <p>${item.ar.toLocaleString("hu-HU")} Ft</p>
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+          cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
+        });
+
+        cartTotalPrice.innerText = `${total.toLocaleString("hu-HU")} Ft`;
+        cartBadge.innerText = itemCount;
+      }
+
+      function saveCart() {
+        localStorage.setItem("lessence_cart", JSON.stringify(cart));
+      }
+
+      function toggleCart() {
+        cartSidebar.classList.toggle("open");
+        cartOverlay.classList.toggle("active");
+      }
+
+      // 6. FIZETÉS - Adatbázis frissítése (JAVÍTOTT VERZIÓ)
+      async function checkout() {
+        if (cart.length === 0) {
+          alert("A kosarad üres!");
+          return;
+        }
+
+        const checkoutBtn = document.querySelector(".btn-checkout");
+        checkoutBtn.innerText = "Ellenőrzés...";
+        checkoutBtn.disabled = true;
+
+        try {
+          // 1. Legfrissebb termékadatok lekérése a szerverről
+          const response = await fetch("http://localhost:3000/parfumok");
+          if (!response.ok)
+            throw new Error("Nem sikerült lekérni a termékeket.");
+          const currentProducts = await response.json();
+
+          // 2. Ellenőrizzük, hogy minden termékből van-e elég készlet
+          for (const item of cart) {
+            const product = currentProducts.find((p) => p.id === item.id);
+            if (!product) {
+              alert(`A termék (${item.nev}) már nem elérhető!`);
+              checkoutBtn.innerText = "Fizetés és Megrendelés";
+              checkoutBtn.disabled = false;
+              return;
+            }
+            if (product.raktarkeszlet < item.quantity) {
+              alert(
+                `A termékből (${item.nev}) csak ${product.raktarkeszlet} db van raktáron, de ${item.quantity} db-ot kértél. Kérlek, módosítsd a kosarad!`,
+              );
+              checkoutBtn.innerText = "Fizetés és Megrendelés";
+              checkoutBtn.disabled = false;
+              return;
+            }
+          }
+
+          // 3. Ha minden OK, akkor frissítjük a készletet (soronként)
+          for (const item of cart) {
+            const product = currentProducts.find((p) => p.id === item.id);
+            const newStock = product.raktarkeszlet - item.quantity;
+
+            const patchResponse = await fetch(
+              `http://localhost:3000/parfumok/${item.id}`,
+              {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ raktarkeszlet: newStock }),
+              },
+            );
+
+            if (!patchResponse.ok) {
+              throw new Error(
+                `Hiba a(z) ${item.nev} frissítésekor (${patchResponse.status}).`,
+              );
+            }
+          }
+
+          // 4. Ha minden sikeres
+          alert("Köszönjük a rendelést! A raktárkészlet frissült.");
+          cart = [];
+          saveCart();
+          toggleCart(); // Kosár bezárása
+          await fetchProducts(); // Terméklista újratöltése a szerverről
+        } catch (error) {
+          console.error("Hiba a fizetés során:", error);
+          alert(
+            "Sajnáljuk, hiba történt a fizetés közben. Ellenőrizd, hogy a json-server fut-e a 3000-es porton, és próbáld újra!",
+          );
+        } finally {
+          checkoutBtn.innerText = "Fizetés és Megrendelés";
+          checkoutBtn.disabled = false;
+        }
+      }
+
+      // Szűrők logikája (változatlan a korábbihoz képest)
+      const searchInput = document.getElementById("search-input");
+      const sortSelect = document.getElementById("sort-select");
+      const checkboxes = document.querySelectorAll(
+        '.filter-label input[type="checkbox"]',
+      );
+
+      function applyFiltersAndSort() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const checkedNotes = Array.from(checkboxes)
+          .filter((cb) => cb.checked)
+          .map((cb) => cb.value.toLowerCase());
+        const sortBy = sortSelect.value;
+
+        let filteredProducts = allProducts.filter((product) => {
+          const matchesName = product.nev.toLowerCase().includes(searchTerm);
+          let matchesNotes = true;
+          if (checkedNotes.length > 0) {
+            matchesNotes = checkedNotes.some((note) =>
+              product.illatjegy.toLowerCase().includes(note),
+            );
+          }
+          return matchesName && matchesNotes;
+        });
+
+        if (sortBy === "price-asc")
+          filteredProducts.sort((a, b) => a.ar - b.ar);
+        else if (sortBy === "price-desc")
+          filteredProducts.sort((a, b) => b.ar - a.ar);
+        else filteredProducts.sort((a, b) => a.id - b.id);
+
+        renderProducts(filteredProducts);
+      }
+
+      searchInput.addEventListener("input", applyFiltersAndSort);
+      sortSelect.addEventListener("change", applyFiltersAndSort);
+      checkboxes.forEach((cb) =>
+        cb.addEventListener("change", applyFiltersAndSort),
+      );
+
+      // Indítás
+      document.addEventListener("DOMContentLoaded", fetchProducts);
+    </script>
+  </body>
+</html>
