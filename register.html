@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L'Essence - Regisztráció</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- KÖZÖS CSS (Ugyanaz, mint a login oldalon) --- */
+      :root {
+        --color-bg: #f9f7f2;
+        --color-text: black;
+        --color-gold: #d4af37;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Lato", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font-body);
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        font-weight: 300;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      h1 {
+        font-family: var(--font-heading);
+        font-weight: 400;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s ease;
+      }
+      ul {
+        list-style: none;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        border: 1px solid var(--color-text);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: transparent;
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+      }
+      .btn:hover {
+        background-color: var(--color-text);
+        color: var(--color-bg);
+      }
+      header {
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(249, 247, 242, 0.98);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .logo {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+      nav ul {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+      nav a {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+      }
+
+      .auth-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 20px;
+      }
+      .auth-card {
+        background: #fff;
+        padding: 50px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+      .auth-card h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+      .auth-card p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 0.9rem;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      .form-group label {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        color: #555;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        background: transparent;
+        font-family: var(--font-body);
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .form-group input:focus {
+        border-color: var(--color-gold);
+      }
+
+      .auth-links {
+        margin-top: 25px;
+        font-size: 0.9rem;
+      }
+      .auth-links a {
+        color: var(--color-gold);
+        font-weight: 700;
+      }
+      footer {
+        background-color: #1a1a1a;
+        color: #888;
+        padding: 40px 20px;
+        text-align: center;
+        font-size: 0.8rem;
+        margin-top: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">L'ESSENCE</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Főoldal</a></li>
+          <li><a href="webshop.html">Kollekciók</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="auth-container">
+      <div class="auth-card">
+        <h1>Regisztráció</h1>
+        <p>Hozza létre saját L'Essence fiókját.</p>
+
+        <form id="register-form">
+          <div class="form-group">
+            <label for="name">Teljes Név</label>
+            <input type="text" id="name" required placeholder="Kovács Anna" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email cím</label>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="pelda@email.hu"
+            />
+          </div>
+          <div class="form-group">
+            <label for="address">Szállítási cím</label>
+            <input
+              type="text"
+              id="address"
+              required
+              placeholder="1052 Budapest, Váci utca 10."
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Jelszó</label>
+            <input
+              type="password"
+              id="password"
+              required
+              placeholder="••••••••"
+            />
+          </div>
+          <button type="submit" class="btn">Regisztrálok</button>
+        </form>
+
+        <div class="auth-links">
+          Már van fiókja? <a href="login.html">Jelentkezzen be itt</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 L'Essence Parfüméria. Minden jog fenntartva.</p>
+    </footer>
+
+    <script>
+      const registerForm = document.getElementById("register-form");
+
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Adatok kinyerése az űrlapból
+        const newUser = {
+          nev: document.getElementById("name").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          cim: document.getElementById("address").value.trim(),
+          jelszo: document.getElementById("password").value,
+          rendelesi_elozmenyek: [], // Üres tömbbel indul [cite: 4]
+        };
+
+        try {
+          // Először ellenőrizzük, hogy létezik-e már ez az email
+          const checkResponse = await fetch(
+            `http://localhost:3000/felhasznalok?email=${newUser.email}`,
+          );
+          const existingUsers = await checkResponse.json();
+
+          if (existingUsers.length > 0) {
+            alert("Ezzel az email címmel már regisztráltak!");
+            return;
+          }
+
+          // Új felhasználó küldése a JSON szervernek (POST kérés)
+          const response = await fetch("http://localhost:3000/felhasznalok", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newUser),
+          });
+
+          if (response.ok) {
+            alert("Sikeres regisztráció! Most már bejelentkezhet.");
+            window.location.href = "login.html"; // Átirányítás a bejelentkezéshez
+          } else {
+            throw new Error("Hiba a regisztráció során");
+          }
+        } catch (error) {
+          console.error("Hiba:", error);
+          alert("Nem sikerült kapcsolódni a szerverhez.");
+        }
+      });
+    </script>
+  </body>
+</html>
