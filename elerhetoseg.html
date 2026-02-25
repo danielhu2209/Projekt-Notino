@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L'Essence - Kapcsolat & Vélemények</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+      /* --- KÖZÖS CSS --- */
+      :root {
+        --color-bg: #f9f7f2;
+        --color-text: black;
+        --color-gold: #d4af37;
+        --color-deep: #4a2c2a;
+        --font-heading: "Playfair Display", serif;
+        --font-body: "Lato", sans-serif;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: var(--font-body); background-color: var(--color-bg); color: var(--color-text); line-height: 1.6; font-weight: 300;
+      }
+
+      h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; }
+      a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+      ul { list-style: none; }
+
+      .btn {
+        display: inline-block; padding: 10px 25px; border: 1px solid var(--color-text); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease; background: transparent;
+      }
+      .btn:hover { background-color: var(--color-text); color: var(--color-bg); }
+      .btn-gold { border-color: var(--color-gold); color: var(--color-gold); }
+      .btn-gold:hover { background-color: var(--color-gold); color: #fff; }
+      .btn-danger { border-color: #c62828; color: #c62828; padding: 5px 15px; font-size: 0.7rem; }
+      .btn-danger:hover { background-color: #c62828; color: #fff; }
+
+      /* --- NAVIGÁCIÓ --- */
+      header {
+        padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; background-color: rgba(249, 247, 242, 0.98); border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .logo { font-family: var(--font-heading); font-size: 1.8rem; letter-spacing: 2px; font-weight: 600; }
+      nav ul { display: flex; gap: 30px; align-items: center; }
+      nav a { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+      nav a:hover { color: var(--color-gold); }
+      .auth-link { font-weight: 700; color: var(--color-gold); }
+
+      /* --- ELÉRHTŐSÉG SZEKCIÓ --- */
+      .page-header { margin-top: 100px; padding: 60px 20px 20px; text-align: center; }
+      .page-header h1 { font-size: 3rem; margin-bottom: 10px; }
+      
+      .contact-container {
+        display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; padding: 40px 20px; gap: 50px;
+      }
+      .contact-info { flex: 1; min-width: 300px; }
+      .contact-info h2 { font-size: 2rem; margin-bottom: 20px; }
+      .info-item { display: flex; align-items: flex-start; margin-bottom: 20px; }
+      .info-item i { font-size: 1.2rem; color: var(--color-gold); margin-right: 15px; margin-top: 5px; }
+      .info-item p { margin: 0; font-size: 1.1rem; }
+      .social-links { margin-top: 30px; }
+      .social-links a { font-size: 1.5rem; margin-right: 15px; color: var(--color-text); }
+      .social-links a:hover { color: var(--color-gold); }
+
+      .map-container { flex: 1; min-width: 300px; height: 400px; background: #ddd; }
+      .map-container iframe { width: 100%; height: 100%; border: 0; }
+
+      /* --- KOMMENTEK SZEKCIÓ --- */
+      .comments-section {
+        max-width: 1000px; margin: 60px auto; padding: 40px 20px; border-top: 1px solid #ddd;
+      }
+      .comments-section h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; }
+      
+      .comment-form-container { background: #fff; padding: 30px; margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+      .comment-form-container h3 { margin-bottom: 15px; font-size: 1.2rem; }
+      .form-group { margin-bottom: 15px; }
+      .form-group label { display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; color: #555; }
+      .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; font-family: var(--font-body); outline: none; }
+      .form-group textarea:focus { border-color: var(--color-gold); }
+      
+      .login-prompt { text-align: center; padding: 20px; background: #eee; font-style: italic; }
+      
+      .comments-list { display: flex; flex-direction: column; gap: 20px; }
+      .comment-card { background: #fff; padding: 20px; border-left: 4px solid var(--color-gold); position: relative; }
+      .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+      .comment-author { font-weight: 700; font-family: var(--font-heading); font-size: 1.2rem; }
+      .comment-rating { color: var(--color-gold); }
+      .comment-text { color: #444; font-size: 1rem; }
+      .delete-btn-container { margin-top: 15px; text-align: right; }
+
+      footer { background-color: #1a1a1a; color: #888; padding: 40px 20px; text-align: center; font-size: 0.8rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">L'ESSENCE</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Főoldal</a></li>
+          <li><a href="webshop.html">Kollekciók</a></li>
+          <li><a href="bemutatkozas.html">Rólunk</a></li>
+          <li><a href="elerhetoseg.html" style="color: var(--color-gold)">Kapcsolat</a></li>
+          <li><a href="login.html" id="auth-link" class="auth-link">Bejelentkezés</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="page-header">
+      <h1>Kapcsolat</h1>
+      <p>Látogasson el hozzánk, vagy ossza meg velünk véleményét.</p>
+    </div>
+
+    <main>
+      <section class="contact-container">
+        <div class="contact-info">
+          <h2>Üzletünk</h2>
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <p><strong>Cím:</strong><br>1052 Budapest, Andrássy út 22.</p>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <p><strong>Telefon:</strong><br>+36 1 234 5678</p>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <p><strong>Email:</strong><br>hello@lessence-parfum.hu</p>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-clock"></i>
+            <p><strong>Nyitvatartás:</strong><br>Hétfő - Péntek: 10:00 - 19:00<br>Szombat: 10:00 - 15:00</p>
+          </div>
+
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2695.5305146864893!2d19.058311315626887!3d47.50153897917789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4741dc429b972e6b%3A0x6b69b597b8b26e10!2sBudapest%2C%20Andr%C3%A1ssy%20%C3%BAt%2022%2C%201061!5e0!3m2!1shu!2shu!4v1698765432109!5m2!1shu!2shu" 
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </section>
+
+      <section class="comments-section">
+        <h2>Vásárlói Vélemények</h2>
+
+        <div id="comment-form-area">
+            </div>
+
+        <div class="comments-list" id="comments-list">
+            <p style="text-align: center; color: #888;">Vélemények betöltése...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 L'Essence Parfüméria. Minden jog fenntartva.</p>
+    </footer>
+
+    <script>
+      // --- BEJELENTKEZÉS ÁLLAPOT ELLENŐRZÉSE ---
+      const currentUser = JSON.parse(localStorage.getItem("logged_in_user"));
+      const authLink = document.getElementById("auth-link");
+      const commentFormArea = document.getElementById("comment-form-area");
+      const commentsList = document.getElementById("comments-list");
+
+      // Navigációs sáv frissítése
+      if (currentUser) {
+        authLink.innerText = "Kijelentkezés";
+        authLink.href = "#";
+        authLink.onclick = (e) => {
+          e.preventDefault();
+          localStorage.removeItem("logged_in_user");
+          window.location.reload();
+        };
+
+        // Komment űrlap megjelenítése bejelentkezett felhasználónak
+        commentFormArea.innerHTML = `
+          <div class="comment-form-container">
+            <h3>Írja meg véleményét, ${currentUser.nev}!</h3>
+            <form id="new-comment-form">
+              <div class="form-group">
+                <label for="rating">Értékelés (1-5 csillag)</label>
+                <select id="rating" required>
+                  <option value="5">⭐⭐⭐⭐⭐ (Kiváló)</option>
+                  <option value="4">⭐⭐⭐⭐ (Jó)</option>
+                  <option value="3">⭐⭐⭐ (Átlagos)</option>
+                  <option value="2">⭐⭐ (Gyenge)</option>
+                  <option value="1">⭐ (Rossz)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="comment-text">Az Ön véleménye</label>
+                <textarea id="comment-text" rows="4" required placeholder="Ossza meg velünk tapasztalatait..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-gold">Küldés</button>
+            </form>
+          </div>
+        `;
+
+        // Űrlap eseménykezelője a beküldéshez
+        document.getElementById("new-comment-form").addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const text = document.getElementById("comment-text").value;
+          const rating = parseInt(document.getElementById("rating").value);
+
+          const newComment = {
+            parfum_id: 0, // 0 = Általános vélemény az üzletről
+            felhasznalo_nev: currentUser.nev,
+            ertekeles: rating,
+            szoveg: text
+          };
+
+          try {
+            const response = await fetch("http://localhost:3000/kommentek", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newComment)
+            });
+
+            if (response.ok) {
+              document.getElementById("comment-text").value = "";
+              fetchComments(); // Lista újratöltése
+            } else {
+              throw new Error("Hiba a mentéskor");
+            }
+          } catch (error) {
+            console.error("Hiba a komment elküldésekor:", error);
+            alert("Sajnos nem sikerült elküldeni a véleményt.");
+          }
+        });
+
+      } else {
+        // Ha nincs bejelentkezve, egy üzenet jelenik meg az űrlap helyett
+        commentFormArea.innerHTML = `
+          <div class="login-prompt">
+            <p>Vélemény írásához kérjük, <a href="login.html" style="color: var(--color-gold); font-weight: bold;">jelentkezzen be</a> fiókjába!</p>
+          </div>
+        `;
+      }
+
+      // --- KOMMENTEK BETÖLTÉSE ---
+      async function fetchComments() {
+        try {
+          const response = await fetch("http://localhost:3000/kommentek");
+          const comments = await response.json();
+          renderComments(comments);
+        } catch (error) {
+          console.error("Hiba a kommentek letöltésekor:", error);
+          commentsList.innerHTML = `<p style="text-align: center; color: #c62828;">Nem sikerült betölteni a véleményeket.</p>`;
+        }
+      }
+
+      // --- KOMMENTEK MEGJELENÍTÉSE ---
+      function renderComments(comments) {
+        commentsList.innerHTML = "";
+
+        if (comments.length === 0) {
+          commentsList.innerHTML = `<p style="text-align: center; color: #888;">Még nincsenek vélemények. Legyen Ön az első!</p>`;
+          return;
+        }
+
+        // Kommentek fordított sorrendben (legújabb legfelül)
+        comments.reverse().forEach(comment => {
+          // Csillagok generálása
+          const stars = "★".repeat(comment.ertekeles) + "☆".repeat(5 - comment.ertekeles);
+          
+          // Törlés gomb ellenőrzése (csak akkor jelenik meg, ha a sajátja)
+          let deleteBtnHTML = "";
+          if (currentUser && currentUser.nev === comment.felhasznalo_nev) {
+            deleteBtnHTML = `
+              <div class="delete-btn-container">
+                <button class="btn btn-danger" onclick="deleteComment('${comment.id}')">
+                  <i class="fas fa-trash"></i> Törlés
+                </button>
+              </div>
+            `;
+          }
+
+          const commentHTML = `
+            <div class="comment-card">
+              <div class="comment-header">
+                <span class="comment-author"><i class="fas fa-user-circle"></i> ${comment.felhasznalo_nev}</span>
+                <span class="comment-rating">${stars}</span>
+              </div>
+              <p class="comment-text">${comment.szoveg}</p>
+              ${deleteBtnHTML}
+            </div>
+          `;
+          commentsList.insertAdjacentHTML("beforeend", commentHTML);
+        });
+      }
+
+      // --- KOMMENT TÖRLÉSE ---
+      async function deleteComment(commentId) {
+        const confirmDelete = confirm("Biztosan törölni szeretné ezt a véleményt?");
+        if (!confirmDelete) return;
+
+        try {
+          const response = await fetch(`http://localhost:3000/kommentek/${commentId}`, {
+            method: "DELETE"
+          });
+
+          if (response.ok) {
+            fetchComments(); // Frissítés törlés után
+          } else {
+            throw new Error("Nem sikerült törölni.");
+          }
+        } catch (error) {
+          console.error("Hiba a törlés során:", error);
+          alert("Hiba történt a törlés során.");
+        }
+      }
+
+      // Indítás
+      document.addEventListener("DOMContentLoaded", fetchComments);
+
+    </script>
+  </body>
+</html>
