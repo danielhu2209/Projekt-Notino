@@ -1,7 +1,7 @@
 {
   "parfumok": [
     {
-      "id": "1",
+      "id": 1,
       "nev": "Tom Ford Ombre Leather",
       "ar": 65000,
       "raktarkeszlet": 12,
@@ -9,7 +9,7 @@
       "illatjegy": "bőr, fűszeres"
     },
     {
-      "id": "2",
+      "id": 2,
       "nev": "Parfums De Marly Percival",
       "ar": 82000,
       "raktarkeszlet": 5,
@@ -17,7 +17,7 @@
       "illatjegy": "citrusos, fás"
     },
     {
-      "id": "3",
+      "id": 3,
       "nev": "Xerjoff Naxos",
       "ar": 95000,
       "raktarkeszlet": 0,
@@ -25,7 +25,7 @@
       "illatjegy": "orientális, édes"
     },
     {
-      "id": "4",
+      "id": 4,
       "nev": "Baccarat Rouge 540",
       "ar": 110000,
       "raktarkeszlet": 3,
@@ -33,15 +33,15 @@
       "illatjegy": "virágos, fás"
     },
     {
-      "id": "5",
+      "id": 5,
       "nev": "Tom Ford Tobacco Vanille",
       "ar": 85000,
       "raktarkeszlet": 8,
-      "kep_url": "images/tobaccovanille.webp",
+      "kep_url": "images/tobaccovanille.jpeg",
       "illatjegy": "fűszeres, orientális"
     },
     {
-      "id": "6",
+      "id": 6,
       "nev": "Parfums De Marly Layton",
       "ar": 89000,
       "raktarkeszlet": 15,
@@ -49,7 +49,7 @@
       "illatjegy": "fűszeres, fás"
     },
     {
-      "id": "7",
+      "id": 7,
       "nev": "Montale Arabians Tonka",
       "ar": 45000,
       "raktarkeszlet": 20,
@@ -57,7 +57,7 @@
       "illatjegy": "orientális, édes"
     },
     {
-      "id": "8",
+      "id": 8,
       "nev": "Creed Aventus",
       "ar": 120000,
       "raktarkeszlet": 4,
@@ -65,15 +65,15 @@
       "illatjegy": "citrusos, fás"
     },
     {
-      "id": "9",
+      "id": 9,
       "nev": "Mancera Amore Caffe",
       "ar": 55000,
       "raktarkeszlet": 10,
-      "kep_url": "images/amorecaffe.webp",
+      "kep_url": "images/amorecaffe.jpg",
       "illatjegy": "édes, orientális"
     },
     {
-      "id": "10",
+      "id": 10,
       "nev": "Xerjoff Erba Pura",
       "ar": 88000,
       "raktarkeszlet": 7,
@@ -81,96 +81,61 @@
       "illatjegy": "citrusos, gyümölcsös"
     },
     {
-      "id": "11",
-      "nev": "Amouage Purpuse",
+      "id": 11,
+      "nev": "Amouage Purpose",
       "ar": 110000,
       "raktarkeszlet": 4,
-      "kep_url": "images/purpuse.webp",
+      "kep_url": "images/purpuse.png",
       "illatjegy": "citrusos, orientális"
     },
     {
-      "id": "12",
+      "id": 12,
       "nev": "Initio Side Effect",
       "ar": 130000,
       "raktarkeszlet": 12,
-      "kep_url": "images/side-effeckt.webp",
+      "kep_url": "images/side-effect.jfif",
       "illatjegy": "édes, gyümölcsös"
     }
   ],
   "felhasznalok": [
     {
-      "id": "1",
+      "id": 1,
       "nev": "Kovács Anna",
       "email": "anna.luxus@example.com",
       "jelszo": "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjIQG.HASH",
       "cim": "1052 Budapest, Váci utca 10.",
-      "rendelesi_elozmenyek": [
-        1,
-        4
-      ]
+      "rendelesi_elozmenyek": [1, 4]
     },
     {
-      "id": "2",
+      "id": 2,
       "nev": "Nagy Péter",
       "email": "peter.nagy88@example.com",
       "jelszo": "$2b$10$YVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjIQG.HASH123",
       "cim": "4024 Debrecen, Piac utca 12.",
-      "rendelesi_elozmenyek": [
-        8
-      ]
-    },
-    {
-      "id": "7cf8",
-      "nev": "Németh János",
-      "email": "pelda@gmail.com",
-      "cim": "1234 Mechwart 10F",
-      "jelszo": "teszt",
-      "rendelesi_elozmenyek": []
-    },
-    {
-      "id": "886e",
-      "nev": "Erdős Dániel",
-      "email": "pelda2@gmail.com",
-      "cim": "1234 Mechwart 10F",
-      "jelszo": "teszt2",
-      "rendelesi_elozmenyek": []
+      "rendelesi_elozmenyek": [8]
     }
   ],
   "kommentek": [
     {
-      "id": "1",
+      "id": 1,
       "parfum_id": 1,
       "felhasznalo_nev": "Kovács Anna",
       "ertekeles": 5,
       "szoveg": "Az Ombre Leather egy igazi mestermű! Karakteres, mégis elegáns bőr illat, ami egész nap kitart. Mindenkinek ajánlom."
     },
     {
-      "id": "2",
+      "id": 2,
       "parfum_id": 8,
       "felhasznalo_nev": "Nagy Péter",
       "ertekeles": 4,
       "szoveg": "A Creed Aventus egyértelműen a gyűjteményem ékköve. Az ananászos nyitány zseniális. Az árát leszámítva tökéletes."
     },
     {
-      "id": "3",
+      "id": 3,
       "parfum_id": 7,
       "felhasznalo_nev": "Varga Eszter",
       "ertekeles": 5,
       "szoveg": "Az Arabians Tonka valami elképesztő! Brutális a tartóssága, nagyon édes, fűszeres és mély. Őszi-téli szezonra a legjobb választás."
-    },
-    {
-      "id": "1e6c",
-      "parfum_id": 0,
-      "felhasznalo_nev": "Németh János",
-      "ertekeles": 5,
-      "szoveg": "Nagyon fasza weblap"
-    },
-    {
-      "id": "fb7d",
-      "parfum_id": 0,
-      "felhasznalo_nev": "Erdős Dániel",
-      "ertekeles": 5,
-      "szoveg": "Tuff, hogy működik"
     }
   ]
 }
